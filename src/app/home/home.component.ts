@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private firstObsSubscription: Subscription;
 
   constructor() {
+
   }
 
   ngOnInit() {
@@ -33,22 +34,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
 
-    this.firstObsSubscription = customIntervalObservable.pipe(filter(data => {
-      return data > 0;
-    }), map((data: number) => {
-      return 'Round: ' + (data + 1);
-    })).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-      alert(error.message);
-    }, () => {
-      console.log('Completed!');
-    });
+    this.firstObsSubscription = customIntervalObservable.pipe(filter(data => {return data > 0;}),
+      map((data: number) => { return 'Round: ' + (data + 1);}))
+      .subscribe(data => { console.log(data);},
+      error => { console.log(error.message);
+      alert(error.message);}, 
+      () => { console.log('Completed!');});
   }
-
   ngOnDestroy(): void {
     this.firstObsSubscription.unsubscribe();
   }
-
 }
